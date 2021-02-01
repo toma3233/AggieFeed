@@ -15,6 +15,7 @@
 		69D4D73C25C7EA1C00817C4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69D4D73A25C7EA1C00817C4E /* LaunchScreen.storyboard */; };
 		69D4D74725C7EA1C00817C4E /* AggieFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D74625C7EA1C00817C4E /* AggieFeedTests.swift */; };
 		69D4D75225C7EA1D00817C4E /* AggieFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D75125C7EA1D00817C4E /* AggieFeedUITests.swift */; };
+		69D4D76325C8118900817C4E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D76225C8118900817C4E /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		69D4D74D25C7EA1D00817C4E /* AggieFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AggieFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69D4D75125C7EA1D00817C4E /* AggieFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggieFeedUITests.swift; sourceTree = "<group>"; };
 		69D4D75325C7EA1D00817C4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69D4D76225C8118900817C4E /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				69D4D73825C7EA1C00817C4E /* Assets.xcassets */,
 				69D4D73A25C7EA1C00817C4E /* LaunchScreen.storyboard */,
 				69D4D73D25C7EA1C00817C4E /* Info.plist */,
+				69D4D76225C8118900817C4E /* Post.swift */,
 			);
 			path = AggieFeed;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				69D4D73425C7EA1A00817C4E /* ViewController.swift in Sources */,
 				69D4D73025C7EA1A00817C4E /* AppDelegate.swift in Sources */,
 				69D4D73225C7EA1A00817C4E /* SceneDelegate.swift in Sources */,
+				69D4D76325C8118900817C4E /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
