@@ -9,4 +9,9 @@ import Foundation
 
 struct Post: Codable{
     var title: String!
+    var actor: Actor!
+}
+
+struct Actor: Codable {
+    var displayName: String!
 }
