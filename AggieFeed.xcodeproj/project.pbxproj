@@ -16,6 +16,7 @@
 		69D4D74725C7EA1C00817C4E /* AggieFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D74625C7EA1C00817C4E /* AggieFeedTests.swift */; };
 		69D4D75225C7EA1D00817C4E /* AggieFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D75125C7EA1D00817C4E /* AggieFeedUITests.swift */; };
 		69D4D76325C8118900817C4E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D76225C8118900817C4E /* Post.swift */; };
+		69D4D76825C8CEDF00817C4E /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D76725C8CEDF00817C4E /* DetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		69D4D75125C7EA1D00817C4E /* AggieFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggieFeedUITests.swift; sourceTree = "<group>"; };
 		69D4D75325C7EA1D00817C4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69D4D76225C8118900817C4E /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		69D4D76725C8CEDF00817C4E /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		69D4D72325C7EA1A00817C4E = {
 			isa = PBXGroup;
 			children = (
+				69D4D76725C8CEDF00817C4E /* DetailVC.swift */,
 				69D4D72E25C7EA1A00817C4E /* AggieFeed */,
 				69D4D74525C7EA1C00817C4E /* AggieFeedTests */,
 				69D4D75025C7EA1D00817C4E /* AggieFeedUITests */,
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69D4D76825C8CEDF00817C4E /* DetailVC.swift in Sources */,
 				69D4D73425C7EA1A00817C4E /* ViewController.swift in Sources */,
 				69D4D73025C7EA1A00817C4E /* AppDelegate.swift in Sources */,
 				69D4D73225C7EA1A00817C4E /* SceneDelegate.swift in Sources */,

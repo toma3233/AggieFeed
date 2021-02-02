@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // Create array of activities
     private var activityArray = [Post]()
     
     @IBOutlet var tableView: UITableView!
@@ -25,8 +26,9 @@ class ViewController: UIViewController {
         
     }
     
+    // Use completion handler to avoid loading issues
     func fetchPostData(completionHandler: @escaping ([Post]) -> Void) {
-        let url = URL(string: "https://aggiefeed.ucdavis.edu/api/v1/activity/public?s=0?l=25")!
+        let url = URL(string: "https://aggiefeed.ucdavis.edu/api/v1/activity/public?s=0&l=25")!
         // Begins to connect to API through a URL session
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             // returns if data is not found
@@ -57,12 +59,22 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("you tapped me!")
+        // segue to DetailVC once a cell is selected
+        performSegue(withIdentifier: "showdetail", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Pass in information about the selected activity to DetailVC
+        if let destination = segue.destination as? DetailVC {
+            destination.detailedActivity = activityArray[(tableView.indexPathForSelectedRow?.row)!]
+            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true)
+        }
     }
     
 }
 
 extension ViewController: UITableViewDataSource {
+    // returns the number of activites stored in array
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activityArray.count
     }
