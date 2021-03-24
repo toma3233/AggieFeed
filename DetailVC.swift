@@ -13,16 +13,16 @@ class DetailVC: UIViewController {
     @IBOutlet weak var lblobj: UILabel!
     @IBOutlet weak var lblpub: UILabel!
     
-    var detailedActivity: Post?
+    var detailedNews: News?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Print detailed information about activity into respective labels
-        lbltitle.text = "\((detailedActivity?.title)!)"
-        lblname.text = "\((detailedActivity?.actor.displayName)!)"
-        lblobj.text = "\((detailedActivity?.object.objectType)!)"
-        lblpub.text = "\((detailedActivity?.published)!)"
+        lbltitle.text = "\((detailedNews?.news_title)!)"
+        lblname.text = "\((detailedNews?.news_displayName)!)"
+        lblobj.text = "\((detailedNews?.news_objectType)!)"
+        lblpub.text = "\((detailedNews?.news_published)!)"
         
     }
     

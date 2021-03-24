@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6909202425FEE09C00902A43 /* AggieFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6909202225FEE09C00902A43 /* AggieFeed.xcdatamodeld */; };
+		6909206C25FEE70300902A43 /* News+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6909206A25FEE70300902A43 /* News+CoreDataClass.swift */; };
 		699F6C9F25CA2BC400E27F6A /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699F6C9E25CA2BC400E27F6A /* PaddingLabel.swift */; };
+		69D410B8260560B700C106E9 /* DatabaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D410B7260560B700C106E9 /* DatabaseHandler.swift */; };
 		69D4D73025C7EA1A00817C4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D72F25C7EA1A00817C4E /* AppDelegate.swift */; };
 		69D4D73225C7EA1A00817C4E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D73125C7EA1A00817C4E /* SceneDelegate.swift */; };
 		69D4D73425C7EA1A00817C4E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D4D73325C7EA1A00817C4E /* ViewController.swift */; };
@@ -38,7 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6909202325FEE09C00902A43 /* AggieFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AggieFeed.xcdatamodel; sourceTree = "<group>"; };
+		6909206A25FEE70300902A43 /* News+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "News+CoreDataClass.swift"; sourceTree = "<group>"; };
 		699F6C9E25CA2BC400E27F6A /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		69D410B7260560B700C106E9 /* DatabaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHandler.swift; sourceTree = "<group>"; };
 		69D4D72C25C7EA1A00817C4E /* AggieFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AggieFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69D4D72F25C7EA1A00817C4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69D4D73125C7EA1A00817C4E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6909207125FEE71500902A43 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6909206A25FEE70300902A43 /* News+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		69D4D72325C7EA1A00817C4E = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +121,7 @@
 		69D4D72E25C7EA1A00817C4E /* AggieFeed */ = {
 			isa = PBXGroup;
 			children = (
+				6909207125FEE71500902A43 /* Model */,
 				69D4D72F25C7EA1A00817C4E /* AppDelegate.swift */,
 				69D4D73125C7EA1A00817C4E /* SceneDelegate.swift */,
 				69D4D73325C7EA1A00817C4E /* ViewController.swift */,
@@ -115,6 +130,8 @@
 				69D4D73A25C7EA1C00817C4E /* LaunchScreen.storyboard */,
 				69D4D73D25C7EA1C00817C4E /* Info.plist */,
 				69D4D76225C8118900817C4E /* Post.swift */,
+				6909202225FEE09C00902A43 /* AggieFeed.xcdatamodeld */,
+				69D410B7260560B700C106E9 /* DatabaseHandler.swift */,
 			);
 			path = AggieFeed;
 			sourceTree = "<group>";
@@ -270,7 +287,10 @@
 				699F6C9F25CA2BC400E27F6A /* PaddingLabel.swift in Sources */,
 				69D4D76825C8CEDF00817C4E /* DetailVC.swift in Sources */,
 				69D4D73425C7EA1A00817C4E /* ViewController.swift in Sources */,
+				69D410B8260560B700C106E9 /* DatabaseHandler.swift in Sources */,
 				69D4D73025C7EA1A00817C4E /* AppDelegate.swift in Sources */,
+				6909202425FEE09C00902A43 /* AggieFeed.xcdatamodeld in Sources */,
+				6909206C25FEE70300902A43 /* News+CoreDataClass.swift in Sources */,
 				69D4D73225C7EA1A00817C4E /* SceneDelegate.swift in Sources */,
 				69D4D76325C8118900817C4E /* Post.swift in Sources */,
 			);
@@ -599,6 +619,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6909202225FEE09C00902A43 /* AggieFeed.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6909202325FEE09C00902A43 /* AggieFeed.xcdatamodel */,
+			);
+			currentVersion = 6909202325FEE09C00902A43 /* AggieFeed.xcdatamodel */;
+			path = AggieFeed.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 69D4D72425C7EA1A00817C4E /* Project object */;
 }
