@@ -29,102 +29,125 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        
         // Calls function to scan each activity and append to array
-        fetchPostData { (posts) in }
+        fetchPostData(refresh: true)
       
     }
     
+    @objc private func refreshData() {
+        fetchPostData(refresh: true)
+        
+    }
+    
     // Use completion handler to avoid loading issues
-    func fetchPostData(completionHandler: @escaping ([Post]) -> Void) {
+    func fetchPostData(refresh : Bool = false) {
+        
+        if refresh {
+            tableView.refreshControl?.beginRefreshing()
+            
+        }
+        
         let url = URL(string: "https://aggiefeed.ucdavis.edu/api/v1/activity/public?s=0&l=25")!
         // Begins to connect to API through a URL session
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            // returns if data is not found
-            guard let data = data else { return }
-            
-            do {
-                // Decodes each byte of data according to codable structs created in Post.swift
-                let postsData = try JSONDecoder().decode([Post].self, from: data)
-  
-                // Deletes everything in the CoreData DB when reading from API
-                if self.database.deleteAll() {
-                    let obj = self.database.fetch(type: News.self)
-                    print("AMT OF ITEMS AFTER DELETION")
-                    print(obj.count)
-                    //self.database.save()
-                } else {
-                    let obj = self.database.fetch(type: News.self)
-                    print(obj.map { $0.news_title })
+            DispatchQueue.main.async {
+                if refresh {
+                    self.tableView.refreshControl?.endRefreshing()
+                    print("Refreshed!")
+                    self.items.removeAll()
+                    self.database.deleteAll()
+                    self.activityArray.removeAll()
                 }
+                // returns if data is not found
+                guard let data = data else { return }
                 
-                // appends each activity to activtyArray
-                self.activityArray.append(contentsOf: postsData)
-                for index in 0...(self.activityArray.count - 1) {
+                do {
+                    // Decodes each byte of data according to codable structs created in Post.swift
+                    let postsData = try JSONDecoder().decode([Post].self, from: data)
+      
+                    // Deletes everything in the CoreData DB when reading from API
+                    if self.database.deleteAll() {
+                        let obj = self.database.fetch(type: News.self)
+                        print("AMT OF ITEMS AFTER DELETION")
+                        print(obj.count)
+                        //self.database.save()
+                    } else {
+                        let obj = self.database.fetch(type: News.self)
+                        print(obj.map { $0.news_title })
+                    }
                     
-                    // Print out contents of db for debugging purposes
+                    // appends each activity to activtyArray
+                    self.activityArray.append(contentsOf: postsData)
+                    for index in 0...(self.activityArray.count - 1) {
+                        
+                        // Print out contents of db for debugging purposes
+                        let pbj = self.database.fetch(type: News.self)
+                        print("Before COUNT")
+                        print(pbj.count)
+                        
+                        let newNewsItem = News(context: self.context)
+                        newNewsItem.news_displayName = self.activityArray[index].actor.displayName
+                        newNewsItem.news_title = self.activityArray[index].title
+                        newNewsItem.news_objectType = self.activityArray[index].object.objectType.map { $0.rawValue }
+                        newNewsItem.news_published = self.activityArray[index].published
+                         
+                        // Print out contents of db for debugging purposes
+                        for i in pbj {
+                            print(i.news_title!)
+                        }
+                        print("After COUNT")
+                        print(pbj.count)
+                        print(" ")
+                        print(" ")
+                        
+                        self.items.append(newNewsItem)
+                        self.database.save()
+                    }
+                    
+                    // Print out everything in database once API has been read
                     let pbj = self.database.fetch(type: News.self)
-                    print("Before COUNT")
+                    print("NEW COUNT")
                     print(pbj.count)
-                    
-                    let newNewsItem = News(context: self.context)
-                    newNewsItem.news_displayName = self.activityArray[index].actor.displayName
-                    newNewsItem.news_title = self.activityArray[index].title
-                    newNewsItem.news_objectType = self.activityArray[index].object.objectType.map { $0.rawValue }
-                    newNewsItem.news_published = self.activityArray[index].published
-                     
-                    // Print out contents of db for debugging purposes
                     for i in pbj {
                         print(i.news_title!)
                     }
-                    print("After COUNT")
-                    print(pbj.count)
-                    print(" ")
-                    print(" ")
                     
-                    self.items.append(newNewsItem)
-                    self.database.save()
-                }
-                
-                // Print out everything in database once API has been read
-                let pbj = self.database.fetch(type: News.self)
-                print("NEW COUNT")
-                print(pbj.count)
-                for i in pbj {
-                    print(i.news_title!)
-                }
-                
-                do {
-                    try self.context.save()
+                    do {
+                        try self.context.save()
+                    }
+                    catch {
+                        
+                    }
+                    
                 }
                 catch {
                     
+                    // Account for no internet connect and failed API connection
+                    print("API Connection Failed")
+                    let pbj = self.database.fetch(type: News.self)
+                    print("NUM ITEMS IN DB")
+                    print(pbj.count)
+                    for i in pbj {
+                        print(i.news_title!)
+                    }
+                    
+                    // populate items array with News objects from CoreData DB
+                    let req = NSFetchRequest<News>(entityName: "News")
+                    do {
+                        self.items = try self.context.fetch(req)
+                    } catch {
+                        print ("DIDNT WORK")
+                    }
                 }
-                
-                completionHandler(postsData)
-            }
-            catch {
-                
-                // Account for no internet connect and failed API connection
-                print("API Connection Failed")
-                let pbj = self.database.fetch(type: News.self)
-                print("NUM ITEMS IN DB")
-                print(pbj.count)
-                for i in pbj {
-                    print(i.news_title!)
-                }
-                
-                // populate items array with News objects from CoreData DB
-                let req = NSFetchRequest<News>(entityName: "News")
-                do {
-                    self.items = try self.context.fetch(req)
-                } catch {
-                    print ("DIDNT WORK")
-                }
-            }
-            DispatchQueue.main.async {
+               
                 // reload table view after getting activity
                 self.tableView.reloadData()
             }
+           
+            
             
         }.resume()
     }
