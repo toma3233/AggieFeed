@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     // Data stored using CoreData
     private var items = [News]()
+    private var count = 0
+    private var connected = true
     
     // Create array of activities
     private var activityArray = [Post]()
@@ -33,12 +35,17 @@ class ViewController: UIViewController {
         tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         // Calls function to scan each activity and append to array
-        fetchPostData(refresh: true)
+        fetchPostData(refresh: false)
       
     }
     
     @objc private func refreshData() {
-        fetchPostData(refresh: true)
+        if connected == false {
+            fetchPostData(refresh: false)
+        } else {
+            fetchPostData(refresh: true)
+        }
+        
         
     }
     
@@ -50,21 +57,30 @@ class ViewController: UIViewController {
             
         }
         
-        let url = URL(string: "https://aggiefeed.ucdavis.edu/api/v1/activity/public?s=0&l=25")!
+        if connected == false {
+            tableView.refreshControl?.beginRefreshing()
+            self.tableView.refreshControl?.endRefreshing()
+            
+        }
+        
+        let url = URL(string: "https://aggiefeed.ucdavis.edu/api/v1/activity/public?s=\(count)&l=25")!
         // Begins to connect to API through a URL session
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
-                if refresh {
-                    self.tableView.refreshControl?.endRefreshing()
-                    print("Refreshed!")
-                    self.items.removeAll()
-                    self.database.deleteAll()
-                    self.activityArray.removeAll()
-                }
                 // returns if data is not found
                 guard let data = data else { return }
                 
                 do {
+                    
+                    if refresh {
+                        print("Deleted everything haha")
+                        self.tableView.refreshControl?.endRefreshing()
+                        print("Refreshed!")
+                        self.items.removeAll()
+                        self.database.deleteAll()
+                        self.activityArray.removeAll()
+                    }
+                    
                     // Decodes each byte of data according to codable structs created in Post.swift
                     let postsData = try JSONDecoder().decode([Post].self, from: data)
       
@@ -77,6 +93,11 @@ class ViewController: UIViewController {
                     } else {
                         let obj = self.database.fetch(type: News.self)
                         print(obj.map { $0.news_title })
+                    }
+                    
+                    // remove all items to prepare for new ones (for pagination)
+                    if refresh == false && self.connected == true {
+                        self.items.removeAll()
                     }
                     
                     // appends each activity to activtyArray
@@ -127,6 +148,7 @@ class ViewController: UIViewController {
                     
                     // Account for no internet connect and failed API connection
                     print("API Connection Failed")
+                    self.connected = false
                     let pbj = self.database.fetch(type: News.self)
                     print("NUM ITEMS IN DB")
                     print(pbj.count)
@@ -182,6 +204,11 @@ extension ViewController: UITableViewDataSource {
         let news_item = self.items[indexPath.row]
         cell.textLabel?.text = news_item.news_title
         cell.detailTextLabel?.text = news_item.news_displayName
+        
+        if (indexPath.row == self.items.count - 1) {
+            count += 25
+            fetchPostData(refresh: false)
+        }
         return cell
     }
 }
